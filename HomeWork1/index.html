@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{hello}}</h1>
+        <button @click="reversed">{{btnReversed}}</button>
+        <button @click="addItemInList">{{btnAdd}}</button>
+        <ul>
+            <li v-for="(item) in list" @click="del(item)">{{item}}</li>
+        </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = {
+            data() {
+                return {
+                    hello: "Hello, Vue!",
+                    btnReversed: "Перевернуть",
+                    btnAdd: "Добавить",
+                    list: [],
+                };
+            },
+            methods: {
+                reversed() {
+                    this.btnReversed = this.btnReversed.split("").reverse().join("");
+                    this.hello = this.hello.split("").reverse().join("");
+                },
+                addItemInList() {
+                    this.list.push("Новый элемент списка");
+                },
+                del(item) {
+                    this.list.splice(item, 1);
+                },
+            },
+        };
+        Vue.createApp(app).mount("#app");
+    </script>
+</body>
+
+</html>
