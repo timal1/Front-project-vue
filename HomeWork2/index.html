@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <tr v-for="item in sortedList">
+        <td>{{item.productName}}</td>
+        <td>{{item.price}}</td>
+      </tr>
+    </table>
+    <button @click="sortParam='true'">{{btnSortUp}}</button>
+    <button @click="sortParam='false'">{{btnSortDown}}</button>
+  </div>
+
+  <!-- Вы разрабатываете приложение для отображения и сортировки списка товаров. У вас есть массив объектов products, где каждый
+      объект представляет товар с его названием и ценой. Вам необходимо отобразить список товаров и предоставить пользователю возможность
+      сортировать товары по цене (по возрастанию и по убыванию). -->
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = {
+      data() {
+        return {
+          btnSortUp: "Сортировать по возрастанию цены",
+          btnSortDown: "Сортировать по убыванию цены",
+          sortParam: "",
+          productList: [
+            {
+              productName: "Samsung NoteBook",
+              price: 100000,
+            },
+            {
+              productName: "Samsung S24",
+              price: 70000,
+            },
+            {
+              productName: "Samsung Watch",
+              price: 20000,
+            },
+            {
+              productName: "Samsung Bags",
+              price: 9000,
+            },
+          ],
+        };
+      },
+      computed: {
+        sortedList() {
+          switch (this.sortParam) {
+            case "true":
+              return this.productList.sort(sortByPriceUp);
+            case "false":
+              return this.productList.sort(sortByPriceDown);
+            default:
+              return this.productList;
+          }
+        },
+      },
+    };
+    Vue.createApp(app).mount("#app");
+    const sortByPriceUp = (d1, d2) => (d1.price > d2.price ? 1 : -1);
+    const sortByPriceDown = (d1, d2) => (d1.price < d2.price ? 1 : -1);
+  </script>
+</body>
+
+</html>
